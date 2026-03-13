@@ -14,8 +14,6 @@ const client = new Client({
   ],
 });
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
 // CONFIGURE THESE:
 const CHANNELS_TO_WATCH = ['1471266339816476765', '1471266265900257413','1471266313031782553']; // channels to summarize
 
