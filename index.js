@@ -1,6 +1,9 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const OpenAI = require('openai');
+
+console.log('API KEY:', process.env.OPENAI_API_KEY ? 'found' : 'MISSING');
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 const cron = require('node-cron');
 
 const client = new Client({
