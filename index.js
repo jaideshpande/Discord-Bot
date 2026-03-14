@@ -17,7 +17,9 @@ const client = new Client({
 
 // CONFIGURE THESE:
 const CHANNELS_TO_WATCH = ['1471266339816476765', '1471266265900257413','1471266313031782553']; // channels to summarize
-const SUMMARY_CHANNEL_ID = process.env.SUMMARY_CHANNEL_ID;
+
+
+//const SUMMARY_CHANNEL_ID = process.env.SUMMARY_CHANNEL_ID;
 
 const LAST_SENT_FILE = path.join(process.cwd(), 'last-summary-sent.json');
 const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
@@ -73,8 +75,9 @@ async function fetchAndSummarize() {
       const summary = response.choices[0].message.content;
 
     // Post to summary channel
-    const summaryChannel = await client.channels.fetch(SUMMARY_CHANNEL_ID);
-    await summaryChannel.send(`📋 **Daily Summary for #${channel.name}**\n\n${summary}`);
+    // const summaryChannel = await client.channels.fetch(SUMMARY_CHANNEL_ID);
+    // await summaryChannel.send(`📋 **Daily Summary for #${channel.name}**\n\n${summary}`);
+      await channel.send(`📋 **Daily Summary for #${channel.name}**\n\n${summary}`);
   }
 
   setLastSummarySent();
