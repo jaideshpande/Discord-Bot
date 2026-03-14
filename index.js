@@ -58,9 +58,9 @@ async function fetchAndSummarize() {
       .reverse()
       .join('\n');
 
-    if (!recent) continue;
-
-    const response = await openai.chat.completions.create({
+    let summary;
+    if (recent) {
+      const response = await openai.chat.completions.create({
         model: 'gpt-4o',
         max_tokens: 500,
         messages: [{
@@ -68,16 +68,15 @@ async function fetchAndSummarize() {
           content: `You are a bot living inside a Discord server of young entrepreneurs building 
           and selling AI Automations, ad management services, 
           lead generation software for salespeople, or similar digital services. Your job is to read all the past days' 
-          chats in a Discord channel and summarize them in three to five bullet points :\n\n${recent}`
+          chats in a Discord channel and summarize them in four concise bullet points :\n\n${recent}`
         }]
       });
-      
-      const summary = response.choices[0].message.content;
+      summary = response.choices[0].message.content;
+    } else {
+      summary = '_No new messages in the last 24 hours._';
+    }
 
-    // Post to summary channel
-    // const summaryChannel = await client.channels.fetch(SUMMARY_CHANNEL_ID);
-    // await summaryChannel.send(`📋 **Daily Summary for #${channel.name}**\n\n${summary}`);
-      await channel.send(`📋 **Daily Summary for #${channel.name}**\n\n${summary}`);
+    await channel.send(`📋 **Daily Summary for #${channel.name}**\n\n${summary}`);
   }
 
   setLastSummarySent();
